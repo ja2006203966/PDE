@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 class Space:
     def __init__(self, basis: list, bins = (32, 32, 32)):
         self.bins = bins
@@ -20,7 +21,7 @@ class Space:
                 self.basis[i] = np.expand_dims(self.basis[i], axis = j)
     def to_numpy(self,):
         basis_expand  = [[self.bins[j] if j!=i else 1 for j in range(self.dimension) ] for i in range(self.dimension)]
-        basis  = self.basis
+        basis  = copy.copy(self.basis)
         for i in range(self.dimension):
             basis[i] = np.tile(basis[i], tuple(basis_expand[i]) )
             basis[i] = np.expand_dims(basis[i], axis=-1)
