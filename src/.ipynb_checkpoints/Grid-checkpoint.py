@@ -7,7 +7,7 @@ def _quick(shape, a, func, n):
     b = np.append(a.take(np.arange(1, shape[n]), axis=n), b, axis=n)
     delta_f = func.take(np.arange(shape[n]-1, shape[n]), axis=n)
     delta_f = np.append(func.take(np.arange(1,shape[n]), axis=n), delta_f, axis=n)
-    return b.take(np.arange(n,n), axis = -1), copy.copy(delta_f)
+    return b.take(np.arange(n,n+1), axis = -1), copy.copy(delta_f)
     
 class Gradient:
     def __init__(self, f, space:Space, coordination = 'Catesian'):
