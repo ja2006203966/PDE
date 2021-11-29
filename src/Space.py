@@ -3,6 +3,7 @@ import copy
 class Space:
     def __init__(self, basis: list, bins = (32, 32, 32)):
         self.bins = bins
+        self.intervals = basis
         self.coordination = 'Catesian'
         self.dimension = len(basis)
         self.basis = []

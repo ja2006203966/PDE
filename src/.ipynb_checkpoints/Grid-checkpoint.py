@@ -53,4 +53,3 @@ class Gradient:
         grid = tuple(grid)
         self.grid = np.concatenate(grid, axis = -1)
         return self.grid
-        
