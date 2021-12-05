@@ -53,3 +53,17 @@ class Gradient:
         grid = tuple(grid)
         self.grid = np.concatenate(grid, axis = -1)
         return self.grid
+    def gradient(self, shape, a, func, n, diff):
+        a = copy.copy(a)
+        func = copy.copy(func)
+        b = a.take(np.arange(shape[n]-1, shape[n]), axis=n) + diff
+        b = np.append( a.take(np.arange(1, shape[n]), axis=n), b , axis=n)
+        b = b-a
+        b = b.take(np.arange(n, n+1), axis=-1)
+        
+        delta_f0 = func.take(np.arange(n, n+1), axis=-1) # change for (binx, biny, binz, 3) => (binx, biny, binz, 1) 
+        delta_f = delta_f0.take(np.arange(shape[n]-1, shape[n]), axis=n)
+        delta_f = np.append(delta_f0.take(np.arange(1,shape[n]), axis=n), delta_f, axis=n)
+        delta_f = delta_f -func.take(np.arange(n, n+1), axis=-1)
+        delta_f = delta_f/diff
+        return copy.copy(delta_f)
