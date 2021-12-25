@@ -4,10 +4,11 @@ import copy
 
 def _quick(shape, a, func, n):
     al, au = a.take(np.arange(0, 1), axis=n), a.take(np.arange(shape[n]-1, shape[n]), axis=n)
-    al, au = func[n][0](al), func[n][1](al)
-#     a = a.take(np.arange(1, shape[n]-1), axis=n)
-#     a = np.concatenate((al, a, au), axis = n)
-#     return  a
+    al, au = func[n][0](al), func[n][1](au)
+    
+#     a = a.take(np.arange(1, shape[n]-1), axis=n) # all
+#     a = np.concatenate((al, a, au), axis = n) # all
+#     return  a # all
     return al, au
 
 def _quick_num(shape, a, num, n):
@@ -30,8 +31,8 @@ class Boundary:
     def mapping_anlaytic(self,):
         if self.dimension >=1:
 #             self.bounded_space = _quick(self.shape, self.bounded_space, self.f, 0)
-            self.bounded_space = _quick(self.shape, self.space_value, self.f, 0)
-        if self.dimension >=2:
+            self.bounded_space = ((_quick(self.shape, self.space_value, self.f, 0) ),)
+        if self.dimension >=2: 
 #             self.bounded_space = _quick(self.shape, self.bounded_space, self.f, 1)
             self.bounded_space = self.bounded_space + ((_quick(self.shape, self.space_value, self.f, 1)),)
         if self.dimension >=3:
